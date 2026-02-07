@@ -90,17 +90,17 @@ This is a Test Automation project based on `Playwright` and `TypeScript`. The te
 
 - import:
   ```typescript
-  import { test, expect } from "@playwright/test";
+  import { test, expect } from '@playwright/test';
   ```
 - test:
   ```typescript
-  test("test description", async ({ page }) => {
+  test('test description', async ({ page }) => {
     //your code
   });
   ```
 - describe:
   ```typescript
-  test.describe("Group description", () => {
+  test.describe('Group description', () => {
     //your code
   });
   ```
