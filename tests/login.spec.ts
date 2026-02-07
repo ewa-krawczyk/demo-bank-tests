@@ -47,6 +47,6 @@ test.describe('User login to Demobank', () => {
     await page.getByTestId('password-input').blur();
 
     // Assert
-    await expect(page.getByTestId('error-login-id')).toHaveText(expectedError);
+    await expect(page.getByTestId('error-login-password')).toHaveText(expectedError);
   });
 });
