@@ -3,24 +3,23 @@ import { test, expect } from '@playwright/test';
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
     const url = 'https://demo-bank.vercel.app/';
+    const userName = 'tester12';
+    const userPassword = 'tester12';
+
     await page.goto(url);
+    await page.getByTestId('login-input').fill(userName);
+    await page.getByTestId('password-input').fill(userPassword);
+    await page.getByTestId('login-button').click();
   });
   // test.describe.configure({ retries: 3 });
   test('quick payment with correct data', async ({ page }) => {
     // Arrange
-    const userName = 'tester12';
-    const userPassword = 'tester12';
-
     const receiverID = '2';
     const transferAmount = '150';
     const transferTitle = 'pizza';
     const expectedTransferReceiver = 'Chuck Demobankowy';
 
     // Act
-    await page.getByTestId('login-input').fill(userName);
-    await page.getByTestId('password-input').fill(userPassword);
-    await page.getByTestId('login-button').click();
-
     await page.locator('#widget_1_transfer_receiver').selectOption(receiverID);
     await page.locator('#widget_1_transfer_amount').fill(transferAmount);
     await page.locator('#widget_1_transfer_title').fill(transferTitle);
@@ -36,17 +35,11 @@ test.describe('Pulpit tests', () => {
 
   test('successeful mobile top-up', async ({ page }) => {
     // Arrange
-    const userName = 'tester12';
-    const userPassword = 'tester12';
-
     const topUpReceiver = '500 xxx xxx';
     const topuUpAmount = '50';
     const expectedMessage = `Doładowanie wykonane! ${topuUpAmount},00PLN na numer ${topUpReceiver}`;
 
     // Act
-    await page.getByTestId('login-input').fill(userName);
-    await page.getByTestId('password-input').fill(userPassword);
-    await page.getByTestId('login-button').click();
     await page.locator('#widget_1_topup_receiver').selectOption(topUpReceiver);
     await page.locator('#widget_1_topup_amount').fill(topuUpAmount);
     await page.locator('#uniform-widget_1_topup_agreement > span').click();
