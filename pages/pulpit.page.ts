@@ -38,4 +38,30 @@ export class PulpitPage {
     this.moneyValueText = this.page.locator('#money_value');
     this.userNameText = this.page.getByTestId('user-name');
   }
+
+  async executeQuickTransfer(
+    receiverId: string,
+    amount: string,
+    title: string,
+  ): Promise<void> {
+    await this.transferReceiver.selectOption(receiverId);
+    await this.transferAmount.fill(amount);
+    await this.transferTitle.fill(title);
+
+    await this.transferButton.click();
+    await this.actionCloseButton.click();
+  }
+
+  async executeMobileTopUp(receiver: string, amount: string): Promise<void> {
+    await this.topupReceiverInput.selectOption(receiver);
+    await this.topupAmount.fill(amount);
+    await this.topupAgreementCheckbox.click();
+    await this.topupExecuteButton.click();
+    await this.actionCloseButton.click();
+  }
+
+  async getInitialBalance(): Promise<number> {
+    const text = await this.moneyValueText.innerText();
+    return Number(text);
+  }
 }
