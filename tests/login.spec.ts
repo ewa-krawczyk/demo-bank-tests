@@ -5,8 +5,11 @@ import { log } from 'node:console';
 import { PulpitPage } from '../pages/pulpit.page';
 
 test.describe('User login to Demobank', () => {
+  let loginPage: LoginPage;
+
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
+    loginPage = new LoginPage(page);
   });
 
   test('successful login with correct credentials', async ({ page }) => {
@@ -16,10 +19,7 @@ test.describe('User login to Demobank', () => {
     const expectedUserName = loginData.expectedUserName;
 
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.loginInput.fill(userName);
-    await loginPage.passwordInput.fill(userPassword);
-    await loginPage.loginButton.click();
+    await loginPage.login(userName, userPassword);
 
     // Assert
     const pulpitPage = new PulpitPage(page);
@@ -32,7 +32,6 @@ test.describe('User login to Demobank', () => {
     const expectedError = 'identyfikator ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(incorrectUserName);
     await page.getByTestId('password-input').click();
 
@@ -47,7 +46,6 @@ test.describe('User login to Demobank', () => {
     const expectedError = 'hasło ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userName);
     await loginPage.passwordInput.fill(incorrectUserPassword);
     await loginPage.passwordInput.blur();
