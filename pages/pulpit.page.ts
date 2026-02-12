@@ -15,6 +15,7 @@ export class PulpitPage {
   messageText: Locator;
   moneyValueText: Locator;
   userNameText: Locator;
+  topupAmountErrorMessage: Locator;
 
   constructor(private page: Page) {
     this.sideMenu = new SideMenuComponent(this.page);
@@ -37,6 +38,7 @@ export class PulpitPage {
     this.messageText = this.page.locator('#show_messages');
     this.moneyValueText = this.page.locator('#money_value');
     this.userNameText = this.page.getByTestId('user-name');
+    this.topupAmountErrorMessage = this.page.getByTestId('error-widget-1-topup-amount');
   }
 
   async executeQuickTransfer(

@@ -61,4 +61,19 @@ test.describe('Pulpit tests', () => {
     // Assert
     await expect(pulpitPage.moneyValueText).toHaveText(`${expectedBalance}`);
   });
+
+  test('incorrect top-up amount', async ({ page }) => {
+    // Arrange
+    const topUpReceiver = '500 xxx xxx';
+    const topuUpAmount = '20000';
+    const expectedMessage = 'kwota musi być mniejsza lub równa 150';
+
+    // Act
+    await page.locator('#widget_1_topup_receiver').selectOption(topUpReceiver);
+    await page.locator('#widget_1_topup_amount').fill(topuUpAmount);
+    await page.locator('#widget_1_topup_amount').blur();
+
+    // Assert
+    await expect(pulpitPage.topupAmountErrorMessage).toHaveText(expectedMessage);
+  });
 });
