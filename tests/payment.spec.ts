@@ -22,7 +22,14 @@ test.describe('Paymeny tests', () => {
 
   test(
     'simple payment',
-    { tag: ['@payment', '@integration'] },
+    {
+      tag: ['@payment', '@integration'],
+      annotation: {
+        type: 'documentation',
+        description:
+          'More to fina at: https://jaktestowac.pl/lesson/pw1s04104/',
+      },
+    },
     async ({ page }) => {
       // Arrange
       const transferReceiver = 'Jan Nowak';
