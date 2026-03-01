@@ -20,17 +20,25 @@ test.describe('Paymeny tests', () => {
     paymentPage = new PaymentPage(page);
   });
 
-  test('simple payment', async ({ page }) => {
-    // Arrange
-    const transferReceiver = 'Jan Nowak';
-    const transferAccount = '12 3456 7890 1234 5612 3444 44444';
-    const transferAmount = '222';
-    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
+  test(
+    'simple payment',
+    { tag: ['@payment', '@integration'] },
+    async ({ page }) => {
+      // Arrange
+      const transferReceiver = 'Jan Nowak';
+      const transferAccount = '12 3456 7890 1234 5612 3444 44444';
+      const transferAmount = '222';
+      const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
 
-    // Act
-    paymentPage.makeTransfer(transferReceiver, transferAccount, transferAmount);
+      // Act
+      paymentPage.makeTransfer(
+        transferReceiver,
+        transferAccount,
+        transferAmount,
+      );
 
-    // Assert
-    await expect(paymentPage.messages).toHaveText(expectedMessage);
-  });
+      // Assert
+      await expect(paymentPage.messages).toHaveText(expectedMessage);
+    },
+  );
 });
